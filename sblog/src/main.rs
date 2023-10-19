@@ -34,6 +34,8 @@ fn rocket() -> _ {
     debug!("start...");
 
     conf::init();
+    response::init();
+
     server_start()
 }
 

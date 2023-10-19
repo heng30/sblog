@@ -22,3 +22,8 @@ impl<'a> Responder<'a, 'static> for Data {
             .ok()
     }
 }
+
+#[derive(Default, Debug, Clone)]
+pub struct PostInfo {
+    pub path: String,
+}
