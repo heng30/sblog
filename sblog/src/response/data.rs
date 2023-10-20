@@ -27,25 +27,3 @@ impl<'a> Responder<'a, 'static> for Data {
             .ok()
     }
 }
-
-#[derive(Default, Debug, Clone)]
-pub struct Template {
-    pub frame: String,
-    pub head: String,
-    pub foot: String,
-    pub side: String,
-
-    pub home: HomeTemplate,
-    pub post: PostTemplate,
-}
-
-#[derive(Default, Debug, Clone)]
-pub struct HomeTemplate {
-    pub body: String,
-}
-
-#[derive(Default, Debug, Clone)]
-pub struct PostTemplate {
-    pub title: String,
-    pub body: String,
-}

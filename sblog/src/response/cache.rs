@@ -77,12 +77,8 @@ lazy_static! {
 fn init_template() {
     let template_dir = config::conf::template_dir();
     let frame = template_dir.join("frame.html");
-    let head = template_dir.join("head.html");
-    let foot = template_dir.join("foot.html");
-    let side = template_dir.join("side.html");
-
+    let header = template_dir.join("header.html");
     let home_body = template_dir.join("home-body.html");
-    let post_title = template_dir.join("post-title.html");
     let post_body = template_dir.join("post-body.html");
 
     let mut ptc = POST_TEMPLATE_CACHE.lock().unwrap();
@@ -96,33 +92,13 @@ fn init_template() {
         }
     }
 
-    match fs::read_to_string(&head) {
+    match fs::read_to_string(&header) {
         Ok(text) => {
-            ptc.insert("head".to_string(), text);
+            ptc.insert("header".to_string(), text);
         }
         _ => {
-            fs::write(&head, template::head::TEMPLATE).unwrap();
-            ptc.insert("head".to_string(), template::head::TEMPLATE.to_string());
-        }
-    }
-
-    match fs::read_to_string(&foot) {
-        Ok(text) => {
-            ptc.insert("foot".to_string(), text);
-        }
-        _ => {
-            fs::write(&foot, template::foot::TEMPLATE).unwrap();
-            ptc.insert("foot".to_string(), template::foot::TEMPLATE.to_string());
-        }
-    }
-
-    match fs::read_to_string(&side) {
-        Ok(text) => {
-            ptc.insert("side".to_string(), text);
-        }
-        _ => {
-            fs::write(&side, template::side::TEMPLATE).unwrap();
-            ptc.insert("side".to_string(), template::side::TEMPLATE.to_string());
+            fs::write(&header, template::header::TEMPLATE).unwrap();
+            ptc.insert("header".to_string(), template::header::TEMPLATE.to_string());
         }
     }
 
@@ -135,19 +111,6 @@ fn init_template() {
             ptc.insert(
                 "home-body".to_string(),
                 template::home_body::TEMPLATE.to_string(),
-            );
-        }
-    }
-
-    match fs::read_to_string(&post_title) {
-        Ok(text) => {
-            ptc.insert("post-title".to_string(), text);
-        }
-        _ => {
-            fs::write(&post_title, template::post_title::TEMPLATE).unwrap();
-            ptc.insert(
-                "post-title".to_string(),
-                template::post_title::TEMPLATE.to_string(),
             );
         }
     }
