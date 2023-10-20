@@ -3,6 +3,11 @@ use rocket::response::{Responder, Response, Result};
 use rocket::Request;
 use std::io::Cursor;
 
+#[derive(Default, Debug, Clone)]
+pub struct PostInfo {
+    pub path: String,
+}
+
 pub struct Data {
     data: Vec<u8>,
     r#type: ContentType,
@@ -24,6 +29,23 @@ impl<'a> Responder<'a, 'static> for Data {
 }
 
 #[derive(Default, Debug, Clone)]
-pub struct PostInfo {
-    pub path: String,
+pub struct Template {
+    pub frame: String,
+    pub head: String,
+    pub foot: String,
+    pub side: String,
+
+    pub home: HomeTemplate,
+    pub post: PostTemplate,
+}
+
+#[derive(Default, Debug, Clone)]
+pub struct HomeTemplate {
+    pub body: String,
+}
+
+#[derive(Default, Debug, Clone)]
+pub struct PostTemplate {
+    pub title: String,
+    pub body: String,
 }
