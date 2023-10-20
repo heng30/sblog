@@ -35,7 +35,6 @@ fn init_postinfo() {
     }
 }
 
-#[allow(unused)]
 pub fn get_postinfo(id: &str) -> Option<PostInfo> {
     POST_INFO_CACHE
         .lock()

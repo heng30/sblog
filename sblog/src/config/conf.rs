@@ -30,6 +30,10 @@ pub fn monitor() -> data::Monitor {
     CONFIG.lock().unwrap().borrow().monitor.clone()
 }
 
+pub fn webinfo() -> data::WebInfo {
+    CONFIG.lock().unwrap().borrow().webinfo.clone()
+}
+
 #[allow(unused)]
 pub fn template_dir() -> PathBuf {
     let conf = CONFIG.lock().unwrap();
@@ -101,6 +105,7 @@ impl Config {
             Ok(text) => match serde_json::from_str::<Config>(&text) {
                 Ok(c) => {
                     self.server = c.server;
+                    self.webinfo = c.webinfo;
                     Ok(())
                 }
                 Err(e) => Err(anyhow!("{:?}", e).into()),

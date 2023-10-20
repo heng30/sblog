@@ -48,7 +48,14 @@ fn server_start() -> Rocket<rocket::Build> {
         .attach(cors::Cors)
         .mount("/assest", FileServer::from(conf::assest_dir()))
         .mount("/post/assest", FileServer::from(conf::monitor().assest))
-        .mount("/", routes![controller::post::post, controller::ping::ping])
+        .mount(
+            "/",
+            routes![
+                controller::post::post,
+                controller::ping::ping,
+                controller::homepage::homepage,
+            ],
+        )
 }
 
 fn init_logger() {

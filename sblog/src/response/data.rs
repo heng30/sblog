@@ -1,4 +1,5 @@
 use rocket::http::ContentType;
+use rocket::http::Status;
 use rocket::response::{Responder, Response, Result};
 use rocket::Request;
 use std::io::Cursor;
@@ -11,11 +12,16 @@ pub struct PostInfo {
 pub struct Data {
     data: Vec<u8>,
     r#type: ContentType,
+    pub status: Status,
 }
 
 impl Data {
     pub fn new(data: Vec<u8>, t: ContentType) -> Self {
-        Self { data, r#type: t }
+        Self {
+            data,
+            r#type: t,
+            status: Status::Ok,
+        }
     }
 }
 
@@ -23,6 +29,7 @@ impl<'a> Responder<'a, 'static> for Data {
     fn respond_to(self, _: &'a Request<'_>) -> Result<'static> {
         Response::build()
             .header(self.r#type)
+            .status(self.status)
             .sized_body(self.data.len(), Cursor::new(self.data))
             .ok()
     }

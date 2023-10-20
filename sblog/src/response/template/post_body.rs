@@ -208,11 +208,11 @@ pub const TEMPLATE: &str = r#"
         style="
           margin: 0 auto;
           max-width: 850px;
-          font-size: 2em;
           text-align: center;
         "
       >
-        <p style="padding: 0; margin-bottom: 0">$${{post-title}}</p>
+        <p style="font-size: 2em; padding: 0; margin-bottom: 0">$${{post-title}}</p>
+        <p style="margin-bottom: 0">$${{post-date}}</p>
       </div>
 
       <main class="app-body flex-box" style="max-width: 850px">

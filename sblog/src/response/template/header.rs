@@ -2,7 +2,7 @@ pub const TEMPLATE: &str = r#"
     <div>
       <style>
         .logo {
-          background: url('http://catcoding.me/css/images/logo.png');
+          background: url('$${{site-logo}}');
           background-size: contain;
           width: 40px;
           height: 40px;

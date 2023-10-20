@@ -8,10 +8,10 @@ use notify::{
     event::{CreateKind, DataChange, ModifyKind, RemoveKind, RenameMode},
     Event, EventKind, RecursiveMode, Result, Watcher,
 };
+use std::ffi::OsStr;
 use std::fs;
 use std::path::Path;
 use std::path::PathBuf;
-use std::ffi::OsStr;
 
 pub fn init() {
     watcher_md();
@@ -22,8 +22,13 @@ fn is_exclude_file(path: &Path) -> bool {
     path.file_name().unwrap().to_str().unwrap().starts_with(".")
 }
 
-fn is_md(path: &Path) -> bool {
-    path.extension().unwrap_or(&OsStr::new("")).to_ascii_lowercase() == "md"
+fn is_md_or_html(path: &Path) -> bool {
+    let ext = path
+        .extension()
+        .unwrap_or(&OsStr::new(""))
+        .to_ascii_lowercase();
+
+    ext == "md" || ext == "html"
 }
 
 fn watcher_md() {
@@ -32,7 +37,7 @@ fn watcher_md() {
             Ok(event) => match event.kind {
                 EventKind::Create(CreateKind::File) => {
                     for path in event.paths.into_iter() {
-                        if is_exclude_file(&path) || !is_md(&path) {
+                        if is_exclude_file(&path) || !is_md_or_html(&path) {
                             continue;
                         }
 
@@ -64,7 +69,7 @@ fn watcher_md() {
                 }
                 EventKind::Remove(RemoveKind::File) => {
                     for path in event.paths.into_iter() {
-                        if is_exclude_file(&path) || !is_md(&path) {
+                        if is_exclude_file(&path) || !is_md_or_html(&path) {
                             continue;
                         }
 

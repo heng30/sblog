@@ -93,14 +93,13 @@ pub const TEMPLATE: &str = r#"
     />
     <meta property="og:site_name" content="$${{site-name}}" />
     <meta property="og:type" content="website" />
-
+    <link rel="shortcut icon" href="$${{site-logo}}">
     <title>$${{post-title}} | $${{site-name}}</title>
-
     <div style="margin: 0 auto; width: 0px; height: 0px; overflow: hidden">
       <img
-        src="http://catcoding.me/css/images/logo.png"
-        width="400px"
-        height="400px"
+        src="$${{site-logo}}"
+        width="40px"
+        height="40px"
       />
     </div>
   </head>

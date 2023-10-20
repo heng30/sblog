@@ -18,6 +18,7 @@ pub struct Config {
     pub monitor: Monitor,
 
     pub server: Server,
+    pub webinfo: WebInfo,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -40,4 +41,19 @@ pub struct Monitor {
     pub post: PathBuf,
     pub md: PathBuf,
     pub assest: PathBuf,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct WebInfo {
+    pub site_logo: String,
+    pub site_name: String,
+}
+
+impl Default for WebInfo {
+    fn default() -> Self {
+        Self {
+            site_logo: "/assest/logo.png".to_string(),
+            site_name: "site-name".to_string(),
+        }
+    }
 }
