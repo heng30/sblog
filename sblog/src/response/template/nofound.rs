@@ -7,14 +7,22 @@ pub const TEMPLATE: &str = r#"
     <title>404 No Found</title>
   </head>
   <body>
-    <div style="text-align: center">
-      <div style="font-size: 3em">
-        <h3>Oops! Page not found</h3>
-        <h1><span>4</span><span>0</span><span>4</span></h1>
+    <div
+      style="
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 1.5em;
+      "
+    >
+      <span style="position:relative; bottom: -50px;">Oops! Page not found</span>
+      <div style="font-size: 15em">
+        <div><span>4</span><span>0</span><span>4</span></div>
       </div>
-      <div style="font-size: 1.5em">
-        <h2>we are sorry, but the page you requested was not found</h2>
-      </div>
+      <span style="position: relative; top: -50px;">we are sorry, but the page you requested was not found</span>
     </div>
   </body>
 </html>

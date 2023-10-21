@@ -128,6 +128,8 @@ fn render_tag(tags: &str) -> String {
 }
 
 fn render_md(text: &str) -> Option<String> {
-    // TODO
-    return Some(text.to_string());
+    let mut html = String::new();
+    let parser = pulldown_cmark::Parser::new(text);
+    pulldown_cmark::html::push_html(&mut html, parser);
+    return Some(html);
 }

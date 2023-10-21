@@ -199,14 +199,14 @@ pub const TEMPLATE: &str = r#"
           border-bottom: 1px dashed #e5e5e5;
           margin: 30px 0;
         }
-        .markdown-content code {
+        .markdown-content pre code {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .markdown-content code::-webkit-scrollbar {
+        .markdown-content pre code::-webkit-scrollbar {
             display: none;
         }
-        .markdown-content code {
+        .markdown-content pre code {
             scrollbar-color: #666 #201c29;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
