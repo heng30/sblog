@@ -9,6 +9,15 @@ pub struct PostInfo {
     pub path: String,
 }
 
+#[derive(Default, Debug, Clone)]
+pub struct PostSummary {
+    pub id: String,
+    pub name: String,
+    pub tag: String,
+    pub date: String,
+    pub text: String,
+}
+
 pub struct Data {
     data: Vec<u8>,
     r#type: ContentType,

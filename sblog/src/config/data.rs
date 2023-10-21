@@ -45,6 +45,7 @@ pub struct Monitor {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct WebInfo {
+    pub site_logo_tab: String,
     pub site_logo: String,
     pub site_name: String,
 }
@@ -52,6 +53,7 @@ pub struct WebInfo {
 impl Default for WebInfo {
     fn default() -> Self {
         Self {
+            site_logo_tab: "/assest/logo.png".to_string(),
             site_logo: "/assest/logo.png".to_string(),
             site_name: "site-name".to_string(),
         }

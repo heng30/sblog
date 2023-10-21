@@ -43,6 +43,15 @@ pub fn get_postinfo(id: &str) -> Option<PostInfo> {
         .map_or(None, |v| Some(v.clone()))
 }
 
+pub fn get_postinfo_all() -> Vec<(String, PostInfo)> {
+    POST_INFO_CACHE
+        .lock()
+        .unwrap()
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.clone()))
+        .collect()
+}
+
 pub fn add_postinfo(id: String, pi: PostInfo) {
     POST_INFO_CACHE.lock().unwrap().insert(id, pi);
 }

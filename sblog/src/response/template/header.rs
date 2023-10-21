@@ -28,7 +28,6 @@ pub const TEMPLATE: &str = r#"
           z-index: 200;
         }
         .fixed-header {
-          position: relative;
           background-color: rgba(255, 255, 255, 0.98);
           box-shadow: 0 0 3px rgba(14, 14, 14, 0.26);
         }
@@ -80,7 +79,7 @@ pub const TEMPLATE: &str = r#"
         }
       </style>
 
-      <header class="header fixed-header">
+      <header id="fixed-header" class="header fixed-header" style="position: relative;">
         <div class="header-container">
           <a class="home-link" href="/">
             <div class="logo"></div>

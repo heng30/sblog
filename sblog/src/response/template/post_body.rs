@@ -1,5 +1,5 @@
 pub const TEMPLATE: &str = r#"
-    <div>
+    <div style="padding-top: 60px;">
       <style>
         .app-body {
           padding: 1em;
@@ -29,41 +29,31 @@ pub const TEMPLATE: &str = r#"
           overflow-x: hidden;
         }
         .markdown-content pre,
-        .article-summary pre,
-        .markdown-content code,
-        .article-summary code {
+        .markdown-content code {
           font-family: 'Roboto Mono', Monaco, courier, monospace;
           font-size: 15px;
         }
         @media screen and (max-width: 480px) {
           .markdown-content pre,
-          .article-summary pre,
-          .markdown-content code,
-          .article-summary code {
+          .markdown-content code {
             font-size: 12px;
           }
         }
         @media (max-width: 1280px) {
           .markdown-content pre,
-          .article-summary pre,
-          .markdown-content code,
-          .article-summary code {
+          .markdown-content code {
             font-size: 13px;
           }
         }
         .markdown-content pre .line,
-        .article-summary pre .line,
-        .markdown-content code .line,
-        .article-summary code .line {
+        .markdown-content code .line {
           min-height: 13px;
           margin: 2px 0;
         }
-        .markdown-content p,
-        .article-summary p {
+        .markdown-content p {
           line-height: 1.6em;
         }
-        .markdown-content p code,
-        .article-summary p code {
+        .markdown-content p code {
           background-color: #ebeff3;
           color: #34495e;
           padding: 3px 5px;
@@ -72,41 +62,34 @@ pub const TEMPLATE: &str = r#"
           white-space: nowrap;
           font-weight: bold;
         }
-        .markdown-content h1,
-        .article-summary h1 {
+        .markdown-content h1 {
           font-size: 1.8em;
         }
-        .markdown-content h2,
-        .article-summary h2 {
+        .markdown-content h2 {
           font-size: 1.5em;
         }
-        .markdown-content h3,
-        .article-summary h3 {
+        .markdown-content h3 {
           margin: 1em 0;
           font-size: 1.3em;
           padding-bottom: 0.3em;
           border-bottom: 1px solid #e5e5e5;
         }
-        .markdown-content h4,
-        .article-summary h4 {
+        .markdown-content h4 {
           margin: 1em 0;
           font-size: 1.2em;
         }
-        .markdown-content h4:before,
-        .article-summary h4:before {
+        .markdown-content h4:before {
           content: '#';
           color: #209460;
           margin-right: 5px;
           font-size: 1.2em;
           font-weight: 700;
         }
-        .markdown-content h5,
-        .article-summary h5 {
+        .markdown-content h5 {
           font-size: 1em;
           margin: 0.8em 0;
         }
-        .markdown-content blockquote,
-        .article-summary blockquote {
+        .markdown-content blockquote {
           margin: 1em 0;
           padding: 15px 20px;
           border-left: 4px solid #209460;
@@ -115,20 +98,16 @@ pub const TEMPLATE: &str = r#"
           border-top-right-radius: 2px;
         }
         .markdown-content ul,
-        .article-summary ul,
-        .markdown-content ol,
-        .article-summary ol {
+        .markdown-content ol {
           margin: 17px 0;
         }
-        .markdown-content img,
-        .article-summary img {
+        .markdown-content img {
           max-width: 78%;
           display: block;
           margin: 15px auto;
           cursor: zoom-in;
         }
-        .markdown-content .image-caption,
-        .article-summary .image-caption {
+        .markdown-content .image-caption {
           font-size: 0.8em;
           display: block;
           color: #808080;
@@ -136,8 +115,7 @@ pub const TEMPLATE: &str = r#"
           padding: 0 0 10px;
           text-align: center;
         }
-        .markdown-content figure,
-        .article-summary figure {
+        .markdown-content figure {
           background: #0e0707;
           padding: 0 10px;
           border-radius: 2px;
@@ -145,8 +123,7 @@ pub const TEMPLATE: &str = r#"
           overflow: auto;
           position: relative;
         }
-        .markdown-content figure:after,
-        .article-summary figure:after {
+        .markdown-content figure:after {
           content: attr(data-lang);
           position: absolute;
           top: 0;
@@ -159,42 +136,34 @@ pub const TEMPLATE: &str = r#"
           height: 15px;
           font-weight: 500;
         }
-        .markdown-content figure figcaption,
-        .article-summary figure figcaption {
+        .markdown-content figure figcaption {
           text-align: center;
           font-size: 0.7em;
           color: #008000;
         }
-        .markdown-content > table,
-        .article-summary > table {
+        .markdown-content > table {
           width: 100%;
         }
-        .markdown-content > table thead,
-        .article-summary > table thead {
+        .markdown-content > table thead {
           background-color: #209460;
           border-top-width: 1px;
           border-top-style: solid;
           border-top-color: #e5e5e5;
         }
-        .markdown-content > table thead th,
-        .article-summary > table thead th {
+        .markdown-content > table thead th {
           padding: 5px 10px;
           color: #fff;
         }
-        .markdown-content > table tbody tr:nth-child(even),
-        .article-summary > table tbody tr:nth-child(even) {
+        .markdown-content > table tbody tr:nth-child(even) {
           background: #e6eed6;
         }
-        .markdown-content > table tbody tr:nth-child(odd),
-        .article-summary > table tbody tr:nth-child(odd) {
+        .markdown-content > table tbody tr:nth-child(odd) {
           background: #fff;
         }
-        .markdown-content > table tbody tr td,
-        .article-summary > table tbody tr td {
+        .markdown-content > table tbody tr td {
           padding: 5px 10px;
         }
-        .markdown-content hr,
-        .article-summary hr {
+        .markdown-content hr {
           border: none;
           border-bottom: 1px dashed #e5e5e5;
           margin: 30px 0;
@@ -262,6 +231,5 @@ pub const TEMPLATE: &str = r#"
         </style>
         $${{post-tag}}
       </div>
-
     </div>
 "#;

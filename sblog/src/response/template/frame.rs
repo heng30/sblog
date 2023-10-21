@@ -93,7 +93,7 @@ pub const TEMPLATE: &str = r#"
     />
     <meta property="og:site_name" content="$${{site-name}}" />
     <meta property="og:type" content="website" />
-    <link rel="shortcut icon" href="$${{site-logo}}">
+    <link rel="shortcut icon" href="$${{site-logo-tab}}">
     <title>$${{post-title}} | $${{site-name}}</title>
     <div style="margin: 0 auto; width: 0px; height: 0px; overflow: hidden">
       <img
@@ -107,5 +107,18 @@ pub const TEMPLATE: &str = r#"
     $${{header}}
     $${{body}}
   </body>
+
+  <script>
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+          document.getElementById('fixed-header').style.position = 'fixed';
+      } else {
+          document.getElementById('fixed-header').style.position = 'absolute';
+      }
+      prevScrollpos = currentScrollPos;
+    };
+  </script>
 </html>
 "#;

@@ -1,9 +1,10 @@
 use super::super::cache;
+use super::super::data;
 use crate::config;
 use std::path::Path;
 use tokio::fs;
 
-pub fn homepage() -> String {
+pub fn homepage(page: usize) -> String {
     let (frame, header, body) = {
         let ptc = cache::POST_TEMPLATE_CACHE.lock().unwrap();
         (
@@ -17,11 +18,17 @@ pub fn homepage() -> String {
     let frame = frame
         .replace("$${{site-name}}", &webinfo.site_name)
         .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
         .replace("$${{post-title}}", "Home");
 
     let header = header
         .replace("$${{site-logo}}", &webinfo.site_logo)
         .replace("$${{site-name}}", &webinfo.site_name);
+
+    let body = body.replace(
+        "$${{post-summary-list}}",
+        render_post_summary(page).as_str(),
+    );
 
     frame
         .replace("$${{header}}", &header)
@@ -66,6 +73,7 @@ pub async fn post(id: &str) -> Option<String> {
     let frame = frame
         .replace("$${{site-name}}", &webinfo.site_name)
         .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
         .replace("$${{post-title}}", "Home");
 
     let header = header
@@ -132,4 +140,43 @@ fn render_md(text: &str) -> Option<String> {
     let parser = pulldown_cmark::Parser::new(text);
     pulldown_cmark::html::push_html(&mut html, parser);
     return Some(html);
+}
+
+fn render_post_summary(page: usize) -> String {
+    let posts = { cache::get_postinfo_all() };
+    let mut ps = vec![];
+
+    for (id, pi) in posts.into_iter() {
+        let (post_name, post_tag, post_date, _) = {
+            match parse_post_path(&pi.path) {
+                Some(item) => item,
+                _ => continue,
+            }
+        };
+
+        ps.push(data::PostSummary {
+            id,
+            name: post_name,
+            tag: post_tag,
+            date: post_date,
+            text: "TODO".to_string(),
+        });
+    }
+
+    ps.sort_by(|a, b| b.date.cmp(&a.date));
+
+    let start_index = if page > ps.len() {
+        usize::max(0, ps.len() - 10)
+    } else {
+        page
+    };
+
+    let end_index = usize::min(start_index + 10, ps.len());
+
+    let mut html = String::new();
+    for item in ps[start_index..end_index].iter() {
+        html.push_str(&format!("<article class='article-card'> <h3> <a href='/post/{}'>{}</a> </h3> <p class='article-date'>{}</p> <div class='article-summary'>{} </div> </article>", item.id, item.name, item.date, item.text));
+    }
+
+    html
 }
