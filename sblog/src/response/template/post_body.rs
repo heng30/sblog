@@ -1,5 +1,5 @@
 pub const TEMPLATE: &str = r#"
-    <div style="padding-top: 40px">
+    <div style="padding-top: 60px">
       <style>
         .app-body {
           padding: 1em;
@@ -8,7 +8,6 @@ pub const TEMPLATE: &str = r#"
           max-width: 1040px;
           position: relative;
         }
-
         .flex-box {
           display: flex;
           display: -ms-flexbox;
@@ -16,7 +15,6 @@ pub const TEMPLATE: &str = r#"
           display: -webkit-flex;
           transform: unset !important;
         }
-
         .post-article {
           margin-top: 0;
           width: 100%;
@@ -25,7 +23,6 @@ pub const TEMPLATE: &str = r#"
         .post-article-smaller {
           max-width: 850px;
         }
-
         .markdown-content,
         .article-summary {
           overflow-y: auto;
@@ -202,6 +199,29 @@ pub const TEMPLATE: &str = r#"
           border-bottom: 1px dashed #e5e5e5;
           margin: 30px 0;
         }
+        .markdown-content code {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .markdown-content code::-webkit-scrollbar {
+            display: none;
+        }
+        .markdown-content code {
+            scrollbar-color: #666 #201c29;
+            white-space: pre;
+            -webkit-overflow-scrolling: touch;
+            overflow-x: scroll;
+            display: block;
+            max-width: 100%;
+            max-height: 400px;
+            min-width: 100px;
+            font-size: 16px;
+            padding: 15px 20px 12px 22px;
+            line-height: 1.75;
+            background: #272822;
+            border-radius: .5em;
+            color: #e0e0e0;
+        }
       </style>
 
       <div
@@ -211,7 +231,7 @@ pub const TEMPLATE: &str = r#"
           text-align: center;
         "
       >
-        <p style="font-size: 2em; padding: 0; margin-bottom: 0">$${{post-title}}</p>
+        <h1 style="padding: 0; margin-bottom: 0">$${{post-title}}</h1>
         <p style="margin-bottom: 0">$${{post-date}}</p>
       </div>
 
@@ -222,5 +242,26 @@ pub const TEMPLATE: &str = r#"
           </section>
         </article>
       </main>
+
+      <div
+        style="
+          padding-bottom: 24px;
+          margin: 0 auto;
+          max-width: 850px;
+          text-align: center;
+          display: flex;
+          align-items: right;
+          flex-wrap:  wrap;
+          justify-content: flex-end;
+          text-align: center;
+          font-size: 0.8em;
+        "
+      >
+        <style>
+            .tag-span { border-radius: 2px; padding: 0 4px;  margin: 0 0 0 8px; }
+        </style>
+        $${{post-tag}}
+      </div>
+
     </div>
 "#;

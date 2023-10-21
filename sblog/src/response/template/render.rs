@@ -29,7 +29,7 @@ pub fn homepage() -> String {
 }
 
 pub async fn post(id: &str) -> Option<String> {
-    let (post_text, post_path) = match cache::get_postinfo(id) {
+    let (mut post_text, post_path) = match cache::get_postinfo(id) {
         Some(pi) => match fs::read_to_string(&pi.path).await {
             Ok(text) => (text, pi.path.clone()),
             _ => return None,
@@ -37,38 +37,20 @@ pub async fn post(id: &str) -> Option<String> {
         _ => return None,
     };
 
-    let mut is_md = true;
-    let (post_name, _post_tag, post_date) = {
-        let items = Path::new(&post_path)
-            .file_name()
-            .unwrap()
-            .to_str()
-            .unwrap()
-            .split("@@")
-            .map(|n| n.clone())
-            .collect::<Vec<_>>();
-
-        if items.len() != 3 {
-            log::warn!("invalid filename: {}", post_path);
-            return None;
+    let (post_name, post_tag, post_date, is_md) = {
+        match parse_post_path(&post_path) {
+            Some(item) => item,
+            _ => return None,
         }
-
-        if items[2].to_lowercase().ends_with(".html") {
-            is_md = false;
-        }
-
-        let post_date = items[2]
-            .to_lowercase()
-            .replace(".md", "")
-            .replace(".html", "");
-
-        log::debug!("{:?}", post_date);
-
-        (items[0], items[1], post_date)
     };
 
+    let post_tag = render_tag(&post_tag);
+
     if is_md {
-        // TODO: convert md to html
+        post_text = match render_md(&post_text) {
+            Some(text) => text,
+            _ => return None,
+        }
     }
 
     let (frame, header, body) = {
@@ -93,6 +75,7 @@ pub async fn post(id: &str) -> Option<String> {
     let body = body
         .replace("$${{post-title}}", &post_name)
         .replace("$${{post-date}}", &post_date)
+        .replace("$${{post-tag}}", &post_tag)
         .replace("$${{post-article}}", &post_text);
 
     Some(
@@ -100,4 +83,51 @@ pub async fn post(id: &str) -> Option<String> {
             .replace("$${{header}}", &header)
             .replace("$${{body}}", &body),
     )
+}
+
+pub fn parse_post_path(path: &str) -> Option<(String, String, String, bool)> {
+    let items = Path::new(path)
+        .file_name()
+        .unwrap()
+        .to_str()
+        .unwrap()
+        .split("@@")
+        .map(|n| n.clone())
+        .collect::<Vec<_>>();
+
+    if items.len() != 3 {
+        log::warn!("invalid filename: {}", path);
+        return None;
+    }
+
+    let is_md = !items[2].to_lowercase().ends_with(".html");
+
+    let post_date = items[2]
+        .to_lowercase()
+        .replace(".md", "")
+        .replace(".html", "");
+
+    Some((items[0].to_string(), items[1].to_string(), post_date, is_md))
+}
+
+fn render_tag(tags: &str) -> String {
+    let tag_colors = vec![
+        "#CCE0FF", "#BAF3DB", "#C1F0F5", "#DFD8FD", "#FFD2CC", "#FDD0EC", "#D3F1A7", "#DCDFE4",
+    ];
+
+    let mut tags_str = String::default();
+    for (index, tag) in tags.split(",").enumerate() {
+        let span = format!(
+            "<span  class='tag-span' style='background: {};'>{}</span>",
+            tag_colors[index % tag_colors.len()],
+            tag
+        );
+        tags_str = format!("{}\n{}", tags_str, span);
+    }
+    tags_str
+}
+
+fn render_md(text: &str) -> Option<String> {
+    // TODO
+    return Some(text.to_string());
 }

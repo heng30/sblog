@@ -8,7 +8,10 @@ pub async fn post(id: &str) -> data::Data {
     match template::render::post(id).await {
         Some(post) => data::Data::new(post.as_bytes().to_vec(), ContentType::HTML),
         _ => {
-            let mut d = data::Data::new(vec![], ContentType::HTML);
+            let mut d = data::Data::new(
+                template::nofound::TEMPLATE.as_bytes().to_vec(),
+                ContentType::HTML,
+            );
             d.status = Status::NotFound;
             d
         }
