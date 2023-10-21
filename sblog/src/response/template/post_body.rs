@@ -1,5 +1,5 @@
 pub const TEMPLATE: &str = r#"
-    <div style="padding-top: 60px">
+    <div>
       <style>
         .app-body {
           padding: 1em;

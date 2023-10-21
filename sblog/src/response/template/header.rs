@@ -28,7 +28,7 @@ pub const TEMPLATE: &str = r#"
           z-index: 200;
         }
         .fixed-header {
-          position: fixed;
+          position: relative;
           background-color: rgba(255, 255, 255, 0.98);
           box-shadow: 0 0 3px rgba(14, 14, 14, 0.26);
         }
