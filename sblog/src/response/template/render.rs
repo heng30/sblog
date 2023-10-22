@@ -178,7 +178,9 @@ async fn render_post_summary(page: usize) -> String {
 
     ps.sort_by(|a, b| b.date.cmp(&a.date));
 
-    let start_index = if page * PAGE_STEP >= ps.len() {
+    let start_index = if ps.len() == 0 {
+        0
+    } else if page * PAGE_STEP >= ps.len() {
         if 0 == ps.len() % PAGE_STEP {
             usize::max(0, ps.len() - PAGE_STEP)
         } else {
