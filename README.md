@@ -1,6 +1,6 @@
 ![screenshot](./screenshot/sblog.png)
 
-[English Document](./README.md)
+[中文文档](./README.zh-CN.md)
 
 #### Introduction
 This is a simple blog that provides web services using `Rust Rocket` and generates web pages through HTML templates.
