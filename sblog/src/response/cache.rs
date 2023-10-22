@@ -21,6 +21,11 @@ fn init_postinfo() {
     if metadata.is_dir() {
         for entry in fs::read_dir(&path).unwrap().flatten() {
             let path = entry.path().as_path().to_str().unwrap().to_string();
+
+            if !(path.to_lowercase().ends_with(".html") || path.to_lowercase().ends_with("md")) {
+                continue;
+            }
+
             let id = format!("{:X}", md5::compute(&path));
             log::debug!("{}, {}", id, path);
             {
@@ -88,6 +93,8 @@ fn init_template() {
     let header = template_dir.join("header.html");
     let home_body = template_dir.join("home-body.html");
     let post_body = template_dir.join("post-body.html");
+    let about_body = template_dir.join("about-body.html");
+    let about_body_md = template_dir.join("about-body.md");
 
     let mut ptc = POST_TEMPLATE_CACHE.lock().unwrap();
     match fs::read_to_string(&frame) {
@@ -133,6 +140,26 @@ fn init_template() {
                 "post-body".to_string(),
                 template::post_body::TEMPLATE.to_string(),
             );
+        }
+    }
+
+    match fs::read_to_string(&about_body) {
+        Ok(text) => {
+            ptc.insert("about-body".to_string(), text);
+        }
+        _ => {
+            fs::write(&about_body, template::about_body::TEMPLATE).unwrap();
+            ptc.insert(
+                "about-body".to_string(),
+                template::about_body::TEMPLATE.to_string(),
+            );
+        }
+    }
+
+    match fs::read_to_string(&about_body_md) {
+        Ok(_) => {}
+        _ => {
+            fs::write(&about_body_md, "").unwrap();
         }
     }
 }

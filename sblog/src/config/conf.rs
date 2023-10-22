@@ -83,6 +83,7 @@ impl Config {
         fs::create_dir_all(&self.monitor.post)?;
         fs::create_dir_all(&self.monitor.md)?;
         fs::create_dir_all(&self.monitor.assest)?;
+        fs::create_dir_all(&self.monitor.summary)?;
         Ok(())
     }
 
@@ -96,6 +97,7 @@ impl Config {
         self.monitor.post = app_dirs.data_dir.join("post");
         self.monitor.md = self.monitor.post.join("md");
         self.monitor.assest = self.monitor.post.join("assest");
+        self.monitor.summary = self.monitor.post.join("summary");
 
         Ok(())
     }

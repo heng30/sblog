@@ -8,7 +8,6 @@ pub const TEMPLATE: &str = r#"
       max-width: 1040px;
       position: relative;
     }
-
     .flex-box {
       display: flex;
       display: -ms-flexbox;
@@ -16,37 +15,45 @@ pub const TEMPLATE: &str = r#"
       display: -webkit-flex;
       transform: unset !important;
     }
-
+    .post-article {
+      margin-top: 0;
+      width: 100%;
+      max-width: 850px;
+    }
+    .post-article-smaller {
+      max-width: 850px;
+    }
+    .markdown-content,
     .article-summary {
       overflow-y: auto;
       overflow-x: hidden;
     }
-    .article-summary pre,
-    .article-summary code {
+    .markdown-content pre,
+    .markdown-content code {
       font-family: 'Roboto Mono', Monaco, courier, monospace;
       font-size: 15px;
     }
     @media screen and (max-width: 480px) {
-      .article-summary pre,
-      .article-summary code {
+      .markdown-content pre,
+      .markdown-content code {
         font-size: 12px;
       }
     }
     @media (max-width: 1280px) {
-      .article-summary pre,
-      .article-summary code {
+      .markdown-content pre,
+      .markdown-content code {
         font-size: 13px;
       }
     }
-    .article-summary pre .line,
-    .article-summary code .line {
+    .markdown-content pre .line,
+    .markdown-content code .line {
       min-height: 13px;
       margin: 2px 0;
     }
-    .article-summary p {
+    .markdown-content p {
       line-height: 1.6em;
     }
-    .article-summary p code {
+    .markdown-content p code {
       background-color: #ebeff3;
       color: #34495e;
       padding: 3px 5px;
@@ -55,35 +62,34 @@ pub const TEMPLATE: &str = r#"
       white-space: nowrap;
       font-weight: bold;
     }
-    .article-summary h1 {
+    .markdown-content h1 {
       font-size: 1.8em;
     }
-    .article-summary h2 {
+    .markdown-content h2 {
       font-size: 1.5em;
     }
-    .article-summary h3 {
+    .markdown-content h3 {
       margin: 1em 0;
       font-size: 1.3em;
       padding-bottom: 0.3em;
       border-bottom: 1px solid #e5e5e5;
     }
-    .markdown-content h4,
-    .article-summary h4 {
+    .markdown-content h4 {
       margin: 1em 0;
       font-size: 1.2em;
     }
-    .article-summary h4:before {
+    .markdown-content h4:before {
       content: '#';
       color: #209460;
       margin-right: 5px;
       font-size: 1.2em;
       font-weight: 700;
     }
-    .article-summary h5 {
+    .markdown-content h5 {
       font-size: 1em;
       margin: 0.8em 0;
     }
-    .article-summary blockquote {
+    .markdown-content blockquote {
       margin: 1em 0;
       padding: 15px 20px;
       border-left: 4px solid #209460;
@@ -91,17 +97,17 @@ pub const TEMPLATE: &str = r#"
       border-bottom-right-radius: 2px;
       border-top-right-radius: 2px;
     }
-    .article-summary ul,
-    .article-summary ol {
+    .markdown-content ul,
+    .markdown-content ol {
       margin: 17px 0;
     }
-    .article-summary img {
+    .markdown-content img {
       max-width: 78%;
       display: block;
       margin: 15px auto;
       cursor: zoom-in;
     }
-    .article-summary .image-caption {
+    .markdown-content .image-caption {
       font-size: 0.8em;
       display: block;
       color: #808080;
@@ -109,7 +115,7 @@ pub const TEMPLATE: &str = r#"
       padding: 0 0 10px;
       text-align: center;
     }
-    .article-summary figure {
+    .markdown-content figure {
       background: #0e0707;
       padding: 0 10px;
       border-radius: 2px;
@@ -117,7 +123,7 @@ pub const TEMPLATE: &str = r#"
       overflow: auto;
       position: relative;
     }
-    .article-summary figure:after {
+    .markdown-content figure:after {
       content: attr(data-lang);
       position: absolute;
       top: 0;
@@ -130,71 +136,46 @@ pub const TEMPLATE: &str = r#"
       height: 15px;
       font-weight: 500;
     }
-    .article-summary figure figcaption {
+    .markdown-content figure figcaption {
       text-align: center;
       font-size: 0.7em;
       color: #008000;
     }
-    .article-summary > table {
+    .markdown-content > table {
       width: 100%;
     }
-    .article-summary > table thead {
+    .markdown-content > table thead {
       background-color: #209460;
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: #e5e5e5;
     }
-    .article-summary > table thead th {
+    .markdown-content > table thead th {
       padding: 5px 10px;
       color: #fff;
     }
-    .article-summary > table tbody tr:nth-child(even) {
+    .markdown-content > table tbody tr:nth-child(even) {
       background: #e6eed6;
     }
-    .article-summary > table tbody tr:nth-child(odd) {
+    .markdown-content > table tbody tr:nth-child(odd) {
       background: #fff;
     }
-    .article-summary > table tbody tr td {
+    .markdown-content > table tbody tr td {
       padding: 5px 10px;
     }
-    .article-summary hr {
+    .markdown-content hr {
       border: none;
       border-bottom: 1px dashed #e5e5e5;
       margin: 30px 0;
     }
-    .article-card {
-      padding-bottom: 20px;
-    }
-    .article-card:first-child {
-      margin-top: 60px;
-    }
-    h2.article-head {
-      font-size: 1.6em;
-      margin-bottom: 0;
-    }
-    .article-head > a {
-      color: #34495e;
-    }
-    .article-head > a:hover {
-      border-bottom: 2px solid #209460;
-    }
-    .article-date {
-      color: #7f8c8d;
-      margin: 10px 0;
-      font-size: 0.9em;
-    }
-    .article-summary {
-      margin: 10px 0;
-      color: #34495e;
-    }
-    .article-summary pre code {
+    .markdown-content pre code {
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
-    .article-summary pre code::-webkit-scrollbar {
+    .markdown-content pre code::-webkit-scrollbar {
         display: none;
     }
-    .article-summary pre code {
+    .markdown-content pre code {
         scrollbar-color: #666 #201c29;
         white-space: pre;
         -webkit-overflow-scrolling: touch;
@@ -212,6 +193,14 @@ pub const TEMPLATE: &str = r#"
     }
   </style>
 
-  <div style="margin: 0 auto; max-width: 850px;">$${{post-summary-list}} </div>
+  <div style="margin: 0 auto; max-width: 850px;">
+    <main class="app-body" style="max-width: 850px">
+      <article class="post-article">
+        <section class="markdown-content">
+            $${{about}}
+        </section>
+      </article>
+    </main>
+  </div>
 </div>
 "#;

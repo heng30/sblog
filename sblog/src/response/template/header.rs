@@ -79,7 +79,7 @@ pub const TEMPLATE: &str = r#"
         }
       </style>
 
-      <header id="fixed-header" class="header fixed-header" style="position: relative;">
+      <header id="fixed-header" class="header fixed-header" style="position: fixed;">
         <div class="header-container">
           <a class="home-link" href="/">
             <div class="logo"></div>

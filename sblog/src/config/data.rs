@@ -40,6 +40,7 @@ impl Default for Server {
 pub struct Monitor {
     pub post: PathBuf,
     pub md: PathBuf,
+    pub summary: PathBuf,
     pub assest: PathBuf,
 }
 

@@ -111,7 +111,6 @@ fn watcher_template() {
         notify::recommended_watcher(|res: Result<Event>| match res {
             Ok(event) => match event.kind {
                 EventKind::Modify(ModifyKind::Data(DataChange::Any)) => {
-                    log::debug!("modify: {:?}", event.paths);
                     update_template(event.paths);
                 }
                 _ => {
@@ -136,6 +135,8 @@ fn update_template(paths: Vec<PathBuf>) {
         if !filename.ends_with(".html") {
             continue;
         }
+
+        log::debug!("modify: {:?}", path);
 
         let filename = filename.trim_end_matches(".html");
         let text = fs::read_to_string(&path).unwrap();

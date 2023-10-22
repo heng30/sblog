@@ -4,7 +4,7 @@ use crate::config;
 use std::path::Path;
 use tokio::fs;
 
-pub fn homepage(page: usize) -> String {
+pub async fn homepage(page: usize) -> String {
     let (frame, header, body) = {
         let ptc = cache::POST_TEMPLATE_CACHE.lock().unwrap();
         (
@@ -27,7 +27,7 @@ pub fn homepage(page: usize) -> String {
 
     let body = body.replace(
         "$${{post-summary-list}}",
-        render_post_summary(page).as_str(),
+        render_post_summary(page).await.as_str(),
     );
 
     frame
@@ -142,7 +142,8 @@ fn render_md(text: &str) -> Option<String> {
     return Some(html);
 }
 
-fn render_post_summary(page: usize) -> String {
+async fn render_post_summary(page: usize) -> String {
+    const PAGE_STEP: usize = 10;
     let posts = { cache::get_postinfo_all() };
     let mut ps = vec![];
 
@@ -159,24 +160,66 @@ fn render_post_summary(page: usize) -> String {
             name: post_name,
             tag: post_tag,
             date: post_date,
-            text: "TODO".to_string(),
+            ..Default::default()
         });
     }
 
     ps.sort_by(|a, b| b.date.cmp(&a.date));
 
-    let start_index = if page > ps.len() {
-        usize::max(0, ps.len() - 10)
+    let start_index = if page * PAGE_STEP > ps.len() {
+        i32::max(0, ps.len() as i32 - PAGE_STEP as i32) as usize
     } else {
         page
     };
 
-    let end_index = usize::min(start_index + 10, ps.len());
+    let end_index = usize::min(start_index + PAGE_STEP, ps.len());
 
     let mut html = String::new();
-    for item in ps[start_index..end_index].iter() {
+    let summary_dir = config::conf::monitor().summary;
+    for item in ps[start_index..end_index].iter_mut() {
+        let mut summary_path = summary_dir.join(item.name.as_str());
+        summary_path.set_extension("summary");
+        item.text = match fs::read_to_string(&summary_path).await {
+            Ok(text) => text,
+            _ => String::default(),
+        };
+
         html.push_str(&format!("<article class='article-card'> <h3> <a href='/post/{}'>{}</a> </h3> <p class='article-date'>{}</p> <div class='article-summary'>{} </div> </article>", item.id, item.name, item.date, item.text));
     }
 
     html
+}
+
+pub async fn about() -> String {
+    let (frame, header, body) = {
+        let ptc = cache::POST_TEMPLATE_CACHE.lock().unwrap();
+        (
+            ptc.get("frame").unwrap().to_string(),
+            ptc.get("header").unwrap().to_string(),
+            ptc.get("about-body").unwrap().to_string(),
+        )
+    };
+
+    let webinfo = config::conf::webinfo();
+    let frame = frame
+        .replace("$${{site-name}}", &webinfo.site_name)
+        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
+        .replace("$${{post-title}}", "About");
+
+    let header = header
+        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-name}}", &webinfo.site_name);
+
+    let about_md_path = config::conf::template_dir().join("about-body.md");
+    let about_html = match fs::read_to_string(&about_md_path).await {
+        Ok(text) => render_md(&text).unwrap_or(text),
+        _ => String::default(),
+    };
+
+    let body = body.replace("$${{about}}", &about_html);
+
+    frame
+        .replace("$${{header}}", &header)
+        .replace("$${{body}}", &body)
 }

@@ -24,3 +24,14 @@ clean-incremental:
 clean:
 	cargo clean
 
+POST_DIR=~/.local/share/sblog/post
+POST_MD_DIR=${POST_DIR}/md
+POST_SUMMARY_DIR=${POST_DIR}/summary
+install-testdata:
+	mkdir -p ${POST_MD_DIR} ${POST_SUMMARY_DIR}
+	cp -f ./testdate/*.md ./testdate/*.html ${POST_MD_DIR}
+	cp -f ./testdate/*.summary ${POST_SUMMARY_DIR}
+
+uninstall-testdata:
+	rm -f ${POST_MD_DIR}/* ${POST_SUMMARY_DIR}/*
+
