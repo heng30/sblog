@@ -34,7 +34,10 @@ pub fn webinfo() -> data::WebInfo {
     CONFIG.lock().unwrap().borrow().webinfo.clone()
 }
 
-#[allow(unused)]
+pub fn rssinfo() -> data::RssInfo {
+    CONFIG.lock().unwrap().borrow().rssinfo.clone()
+}
+
 pub fn template_dir() -> PathBuf {
     let conf = CONFIG.lock().unwrap();
     let conf = conf.borrow();
@@ -108,6 +111,7 @@ impl Config {
                 Ok(c) => {
                     self.server = c.server;
                     self.webinfo = c.webinfo;
+                    self.rssinfo = c.rssinfo;
                     Ok(())
                 }
                 Err(e) => Err(anyhow!("{:?}", e).into()),

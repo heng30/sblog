@@ -19,6 +19,7 @@ pub struct Config {
 
     pub server: Server,
     pub webinfo: WebInfo,
+    pub rssinfo: RssInfo,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -57,6 +58,23 @@ impl Default for WebInfo {
             site_logo_tab: "/assest/logo.png".to_string(),
             site_logo: "/assest/logo.png".to_string(),
             site_name: "site-name".to_string(),
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct RssInfo {
+    pub author: String,
+    pub email: String,
+    pub uri: String,
+}
+
+impl Default for RssInfo {
+    fn default() -> Self {
+        Self {
+            author: "author".to_string(),
+            email: "author.com".to_string(),
+            uri: "https://example.com".to_string(),
         }
     }
 }

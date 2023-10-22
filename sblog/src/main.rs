@@ -55,6 +55,7 @@ fn server_start() -> Rocket<rocket::Build> {
                 controller::ping::ping,
                 controller::homepage::homepage,
                 controller::about::about,
+                controller::rss::rss,
             ],
         )
 }

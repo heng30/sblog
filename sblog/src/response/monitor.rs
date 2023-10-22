@@ -3,7 +3,6 @@ use super::{
     data::PostInfo,
 };
 use crate::config;
-use md5;
 use notify::{
     event::{CreateKind, DataChange, ModifyKind, RemoveKind, RenameMode},
     Event, EventKind, RecursiveMode, Result, Watcher,
@@ -19,13 +18,13 @@ pub fn init() {
 }
 
 fn is_exclude_file(path: &Path) -> bool {
-    path.file_name().unwrap().to_str().unwrap().starts_with(".")
+    path.file_name().unwrap().to_str().unwrap().starts_with('.')
 }
 
 fn is_md_or_html(path: &Path) -> bool {
     let ext = path
         .extension()
-        .unwrap_or(&OsStr::new(""))
+        .unwrap_or(OsStr::new(""))
         .to_ascii_lowercase();
 
     ext == "md" || ext == "html"

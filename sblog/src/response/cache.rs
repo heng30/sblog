@@ -40,12 +40,12 @@ fn init_postinfo() {
     }
 }
 
+pub fn get_postinfo_count() -> usize {
+    POST_INFO_CACHE.lock().unwrap().len()
+}
+
 pub fn get_postinfo(id: &str) -> Option<PostInfo> {
-    POST_INFO_CACHE
-        .lock()
-        .unwrap()
-        .get(id)
-        .map_or(None, |v| Some(v.clone()))
+    POST_INFO_CACHE.lock().unwrap().get(id).cloned()
 }
 
 pub fn get_postinfo_all() -> Vec<(String, PostInfo)> {
@@ -73,13 +73,9 @@ pub fn is_postinfo_exist(id: &str) -> bool {
 pub fn update_postinfo_path(from_id: String, to_id: String, to_path: String) {
     let pi = { POST_INFO_CACHE.lock().unwrap().remove(&from_id) };
 
-    match pi {
-        Some(mut v) => {
-            v.path = to_path;
-            POST_INFO_CACHE.lock().unwrap().insert(to_id, v);
-        }
-
-        _ => (),
+    if let Some(mut v) = pi {
+        v.path = to_path;
+        POST_INFO_CACHE.lock().unwrap().insert(to_id, v);
     }
 }
 

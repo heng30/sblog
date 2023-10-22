@@ -213,5 +213,26 @@ pub const TEMPLATE: &str = r#"
   </style>
 
   <div style="margin: 0 auto; max-width: 850px;">$${{post-summary-list}} </div>
+
+  <div style="margin: 0 auto; max-width: 850px">
+    <style>
+      .guide-pager {
+        margin: 1em 3em;
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .page-arrow {
+        color: #34495e;
+      }
+    </style>
+
+    <div class="guide-pager">
+      <a href="/?page=$${{prev-page}}"><span class="page-arrow">← </span>Prev</a>
+      <a><span class="page-arrow"> $${{current-page}} / $${{total-page}} </span></a>
+      <a href="/?page=$${{next-page}}">Next<span class="page-arrow"> →</span></a>
+    </div>
+  </div>
 </div>
 "#;
