@@ -6,6 +6,7 @@ pub const TEMPLATE: &str = r#"
           background-size: contain;
           width: 40px;
           height: 40px;
+          border-radius: 20px;
           margin-right: 10px;
           margin-bottom: 10px;
         }
