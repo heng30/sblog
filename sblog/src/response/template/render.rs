@@ -105,7 +105,6 @@ pub async fn post(id: &str) -> Option<String> {
     )
 }
 
-#[allow(clippy::map_clone)]
 pub fn parse_post_path(path: &str) -> Option<(String, String, String, bool)> {
     let items = Path::new(path)
         .file_name()
@@ -113,7 +112,6 @@ pub fn parse_post_path(path: &str) -> Option<(String, String, String, bool)> {
         .to_str()
         .unwrap()
         .split("@@")
-        .map(|n| n.clone())
         .collect::<Vec<_>>();
 
     if items.len() != 3 {
@@ -178,7 +176,7 @@ async fn render_post_summary(page: usize) -> String {
 
     ps.sort_by(|a, b| b.date.cmp(&a.date));
 
-    let start_index = if ps.len() == 0 {
+    let start_index = if ps.is_empty() {
         0
     } else if page * PAGE_STEP >= ps.len() {
         if 0 == ps.len() % PAGE_STEP {
