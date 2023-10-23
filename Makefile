@@ -24,6 +24,9 @@ clean-incremental:
 clean:
 	cargo clean
 
+install:
+	cp -f ./target/release/sblog ~/bin
+
 POST_DIR=~/.local/share/sblog/post
 POST_MD_DIR=${POST_DIR}/md
 POST_SUMMARY_DIR=${POST_DIR}/summary

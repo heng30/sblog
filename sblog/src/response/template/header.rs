@@ -86,19 +86,39 @@ pub const TEMPLATE: &str = r#"
             <div class="logo"></div>
             <span>$${{site-name}}</span>
           </a>
-          <ul class="right-list">
-            <li class="list-item">
-              <a href="/" class="item-link">Home</a>
-            </li>
 
-            <li class="list-item">
-              <a href="/about/" class="item-link">About</a>
-            </li>
+          <div style="display: flex; justify-content: end; align-items: center">
+            <form style="margin-right: 20px" action="/search">
+              <input
+                type="search"
+                name="keyword"
+                required
+                placeholder="Search"
+                style="
+                  height: 25px;
+                  border-radius: 8px;
+                  border-color: gray;
+                  border-width: 1px;
+                  outline-color: #209460;
+                  outline-width: 1px;
+                "
+              />
+            </form>
 
-            <li class="list-item">
-              <a href="/rss/" class="item-link">RSS</a>
-            </li>
-          </ul>
+            <ul class="right-list">
+              <li class="list-item">
+                <a href="/" class="item-link">Home</a>
+              </li>
+
+              <li class="list-item">
+                <a href="/about/" class="item-link">About</a>
+              </li>
+
+              <li class="list-item">
+                <a href="/rss/" class="item-link">RSS</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </header>
     </div>
