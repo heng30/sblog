@@ -95,12 +95,12 @@ pub const TEMPLATE: &str = r#"
                 required
                 placeholder="Search"
                 style="
-                  height: 25px;
-                  border-radius: 8px;
+                  height: 24px;
+                  border-radius: 4px;
                   border-color: gray;
                   border-width: 1px;
                   outline-color: #209460;
-                  outline-width: 1px;
+                  text-indent: 4px;
                 "
               />
             </form>

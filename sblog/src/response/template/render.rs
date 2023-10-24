@@ -86,7 +86,7 @@ pub async fn post(id: &str) -> Option<String> {
         .replace("$${{site-name}}", &webinfo.site_name)
         .replace("$${{site-logo}}", &webinfo.site_logo)
         .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
-        .replace("$${{post-title}}", "Home");
+        .replace("$${{post-title}}", &post_name);
 
     let header = header
         .replace("$${{site-logo}}", &webinfo.site_logo)
@@ -362,4 +362,85 @@ async fn get_rss_posts() -> Vec<data::PostSummary> {
     }
 
     ps
+}
+
+pub async fn search(keyword: &str) -> String {
+    let (frame, header, body) = {
+        let ptc = cache::POST_TEMPLATE_CACHE.lock().unwrap();
+        (
+            ptc.get("frame").unwrap().to_string(),
+            ptc.get("header").unwrap().to_string(),
+            ptc.get("home-body").unwrap().to_string(),
+        )
+    };
+
+    let webinfo = config::conf::webinfo();
+    let frame = frame
+        .replace("$${{site-name}}", &webinfo.site_name)
+        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
+        .replace("$${{post-title}}", "Search");
+
+    let header = header
+        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-name}}", &webinfo.site_name);
+
+    let (prev_page, current_page, total_page, next_page) = (0, 1, 1, 0);
+    let body = body
+        .replace("$${{prev-page}}", &format!("{}", prev_page))
+        .replace("$${{current-page}}", &format!("{}", current_page))
+        .replace("$${{total-page}}", &format!("{}", total_page))
+        .replace("$${{next-page}}", &format!("{}", next_page))
+        .replace(
+            "$${{post-summary-list}}",
+            render_search(keyword).await.as_str(),
+        );
+
+    frame
+        .replace("$${{header}}", &header)
+        .replace("$${{body}}", &body)
+}
+
+async fn render_search(keyword: &str) -> String {
+    let posts = { cache::get_postinfo_all() };
+    let mut ps = vec![];
+
+    for (id, pi) in posts.into_iter() {
+        let (post_name, post_tag, post_date, _) = {
+            match parse_post_path(&pi.path) {
+                Some(item) => item,
+                _ => continue,
+            }
+        };
+
+        if post_name.contains(keyword) || post_tag.contains(keyword) {
+            ps.push(data::PostSummary {
+                id,
+                name: post_name,
+                tag: post_tag,
+                date: post_date,
+                ..Default::default()
+            });
+        }
+    }
+
+    ps.sort_by(|a, b| b.date.cmp(&a.date));
+
+    let mut html = String::new();
+    let summary_dir = config::conf::monitor().summary;
+    for item in ps.iter_mut() {
+        let mut summary_path = summary_dir.join(item.name.as_str());
+        summary_path.set_extension("summary");
+        item.text = match fs::read_to_string(&summary_path).await {
+            Ok(text) => match render_md(&text) {
+                Some(text) => text,
+                _ => String::default(),
+            },
+            _ => String::default(),
+        };
+
+        html.push_str(&format!("<article class='article-card'> <h3> <a href='/post/{}'>{}</a> </h3> <p class='article-date'>{}</p> <div class='article-summary'>{} </div> </article>", item.id, item.name, item.date, item.text));
+    }
+
+    html
 }

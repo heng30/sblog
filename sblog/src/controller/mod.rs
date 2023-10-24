@@ -4,3 +4,4 @@ pub mod homepage;
 pub mod ping;
 pub mod post;
 pub mod rss;
+pub mod search;

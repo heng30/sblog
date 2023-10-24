@@ -54,6 +54,7 @@ fn server_start() -> Rocket<rocket::Build> {
                 controller::post::post,
                 controller::ping::ping,
                 controller::homepage::homepage,
+                controller::search::search,
                 controller::about::about,
                 controller::rss::rss,
             ],
