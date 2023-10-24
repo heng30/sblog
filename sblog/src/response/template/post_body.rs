@@ -185,12 +185,11 @@ pub const TEMPLATE: &str = r#"
             max-width: 100%;
             max-height: 400px;
             min-width: 100px;
-            font-size: 16px;
+            font-size: 1.2em;
             padding: 15px 20px 12px 22px;
-            line-height: 1.75;
-            background: #272822;
-            border-radius: .5em;
-            color: #e0e0e0;
+            line-height: 1.5;
+            background:  #f9f9f9;
+            border-radius: 4px;
         }
       </style>
 
