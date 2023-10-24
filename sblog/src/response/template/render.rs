@@ -196,7 +196,10 @@ async fn render_post_summary(page: usize) -> String {
         let mut summary_path = summary_dir.join(item.name.as_str());
         summary_path.set_extension("summary");
         item.text = match fs::read_to_string(&summary_path).await {
-            Ok(text) => text,
+            Ok(text) => match render_md(&text) {
+                Some(text) => text,
+                _ => String::default(),
+            },
             _ => String::default(),
         };
 

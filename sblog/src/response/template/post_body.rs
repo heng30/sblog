@@ -53,7 +53,8 @@ pub const TEMPLATE: &str = r#"
         .markdown-content p {
           line-height: 1.6em;
         }
-        .markdown-content p code {
+        .markdown-content p code,
+        .markdown-content li code {
           background-color: #ebeff3;
           color: #34495e;
           padding: 3px 5px;

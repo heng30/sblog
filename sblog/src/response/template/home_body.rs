@@ -44,9 +44,19 @@ pub const TEMPLATE: &str = r#"
       margin: 2px 0;
     }
     .article-summary p {
-      line-height: 1.6em;
+      color: #34495e;
+      line-height: 2em;
     }
     .article-summary p code {
+      background-color: #ebeff3;
+      color: #34495e;
+      padding: 3px 5px;
+      margin: 0 2px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+    .article-summary code {
       background-color: #ebeff3;
       color: #34495e;
       padding: 3px 5px;
@@ -163,28 +173,21 @@ pub const TEMPLATE: &str = r#"
       margin: 30px 0;
     }
     .article-card {
-      padding-bottom: 20px;
+      padding-bottom: 0px;
     }
     .article-card:first-child {
-      margin-top: 60px;
+      margin-top: 30px;
     }
-    h2.article-head {
+    .article-card h3 a {
       font-size: 1.6em;
-      margin-bottom: 0;
-    }
-    .article-head > a {
-      color: #34495e;
-    }
-    .article-head > a:hover {
-      border-bottom: 2px solid #209460;
     }
     .article-date {
       color: #7f8c8d;
-      margin: 10px 0;
+      margin: 0;
       font-size: 0.9em;
     }
     .article-summary {
-      margin: 10px 0;
+      margin: 0;
       color: #34495e;
     }
     .article-summary pre code {
