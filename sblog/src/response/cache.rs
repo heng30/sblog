@@ -76,6 +76,11 @@ pub fn update_postinfo_path(from_id: String, to_id: String, to_path: String) {
     if let Some(mut v) = pi {
         v.path = to_path;
         POST_INFO_CACHE.lock().unwrap().insert(to_id, v);
+    } else {
+        POST_INFO_CACHE
+            .lock()
+            .unwrap()
+            .insert(to_id, PostInfo { path: to_path });
     }
 }
 
