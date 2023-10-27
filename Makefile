@@ -24,6 +24,9 @@ clean-incremental:
 clean:
 	cargo clean
 
+clean-template:
+	rm -f ~/.local/share/sblog/template/*.html
+
 install:
 	cp -f ./target/release/sblog ~/bin
 
