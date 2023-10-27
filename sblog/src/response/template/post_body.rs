@@ -227,7 +227,7 @@ pub const TEMPLATE: &str = r#"
         "
       >
         <style>
-            .tag-span { border-radius: 2px; padding: 0 4px;  margin: 0 0 0 8px; }
+            .post-tag { color: #222; border-radius: 2px; padding: 0 4px;  margin: 0 0 0 8px; }
         </style>
         $${{post-tag}}
       </div>

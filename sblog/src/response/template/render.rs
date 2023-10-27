@@ -137,8 +137,9 @@ fn render_tag(tags: &str) -> String {
     let mut tags_str = String::default();
     for (index, tag) in tags.split(',').enumerate() {
         let span = format!(
-            "<span  class='tag-span' style='background: {};'>{}</span>",
+            "<a  class='post-tag' style='background: {};' href='/search?keyword={}'>{}</a>",
             tag_colors[index % tag_colors.len()],
+            tag,
             tag
         );
         tags_str = format!("{}\n{}", tags_str, span);
