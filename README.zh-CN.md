@@ -3,7 +3,7 @@
 [English Document](./README.md)
 
 #### 介绍
-这是一个简洁的博客，使用`Rust Rocket`提供`web`服务并通过`html`模板生成网页。
+这是一个简洁的博客，使用`Rust Rocket`提供`web`服务并通过`html`模板生成网页。页面效果可访问[Lost Land](https://heng30.xyz)。
 
 #### 如何部署？
 第一次启动后会生成默认`html`模板，模板在`~/.local/share/sblog/template`目录下。包含以下文件：
@@ -38,7 +38,7 @@ template
   }
 }
 ````
-`rssinfo`和`webinfo`是`html`模板的参数，**必须**填写。
+`rssinfo`和`webinfo`是`html`模板的参数，**必须**填写。其中`webinfo`的根目录是`~/.local/share/sblog`
 
 #### 如何发布文章？
 - 文章应该放在`~/.local/share/sblog/post/md`目录下。文章格式为`Markdown`, 文章名格式**必须**为：`title@@tag@@publish-date`。例子： `markdown@@tag1,tag2@@2023-12-01.md`。

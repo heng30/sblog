@@ -3,7 +3,7 @@
 [中文文档](./README.zh-CN.md)
 
 #### Introduction
-This is a simple blog that provides web services using `Rust Rocket` and generates web pages through HTML templates.
+This is a simple blog that provides web services using `Rust Rocket` and generates web pages through HTML templates. You can visit the [Lost Land](https://heng30.xyz) to view the frontend.
 
 #### How to deploy?
 After the first startup, the default HTML template will be generated. The template is located in the `~/.local/share/sblog/template` directory and includes the following files:
@@ -38,7 +38,7 @@ After the first startup, the default configuration file will be generated. The c
   }
 }
 ````
-`rssinfo` and `webinfo` are parameters for the HTML template and **must** be filled in.
+`rssinfo` and `webinfo` are parameters for the HTML template and **must** be filled in. The `webinfo` root directory is `~/.local/share/sblog`.
 
 #### How to publish articles?
 - Articles should be placed in the `~/.local/share/sblog/post/md` directory. The article format should be in Markdown, and the article name format **must** be: `title@@tag@@publish-date`. For example: `markdown@@tag1,tag2@@2023-12-01.md`.
