@@ -41,7 +41,7 @@ fn watcher_md() {
                         }
 
                         let path = path.to_str().unwrap().to_string();
-                        let id = format!("{:X}", md5::compute(&path));
+                        let id = format!("{:x}", md5::compute(&path));
 
                         log::debug!("create: ({}, {})", id, path);
                         add_postinfo(id, path);
@@ -53,8 +53,8 @@ fn watcher_md() {
                     } else {
                         let from_path = event.paths[0].to_str().unwrap().to_string();
                         let to_path = event.paths[1].to_str().unwrap().to_string();
-                        let from_id = format!("{:X}", md5::compute(&from_path));
-                        let to_id = format!("{:X}", md5::compute(&to_path));
+                        let from_id = format!("{:x}", md5::compute(&from_path));
+                        let to_id = format!("{:x}", md5::compute(&to_path));
 
                         log::debug!(
                             "rename: ({}, {}) -> ({}, {})",
@@ -73,7 +73,7 @@ fn watcher_md() {
                         }
 
                         let path = path.to_str().unwrap().to_string();
-                        let id = format!("{:X}", md5::compute(&path));
+                        let id = format!("{:x}", md5::compute(&path));
 
                         log::debug!("remove: ({}, {})", id, path);
                         remove_postinfo(id, path);

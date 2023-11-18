@@ -26,7 +26,7 @@ fn init_postinfo() {
                 continue;
             }
 
-            let id = format!("{:X}", md5::compute(&path));
+            let id = format!("{:x}", md5::compute(&path));
             log::debug!("{}, {}", id, path);
             {
                 POST_INFO_CACHE
