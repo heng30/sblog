@@ -403,6 +403,7 @@ pub async fn search(keyword: &str) -> String {
 }
 
 async fn render_search(keyword: &str) -> String {
+    let keyword = keyword.to_lowercase();
     let posts = { cache::get_postinfo_all() };
     let mut ps = vec![];
 
@@ -414,7 +415,7 @@ async fn render_search(keyword: &str) -> String {
             }
         };
 
-        if post_name.contains(keyword) || post_tag.contains(keyword) {
+        if post_name.to_lowercase().contains(&keyword) || post_tag.to_lowercase().contains(&keyword) {
             ps.push(data::PostSummary {
                 id,
                 name: post_name,
