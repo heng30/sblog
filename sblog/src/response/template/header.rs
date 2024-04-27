@@ -101,6 +101,22 @@ pub const TEMPLATE: &str = r#"
       <div class="right-list" style="justify-content: end; align-items: center">
         <ul>
           <form class="search-input" action="/search">
+            <svg
+              t="1698385657414"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              p-id="4247"
+              width="20"
+              height="20"
+              style="position: relative; left: 25px; top: 5px"
+            >
+              <path
+                d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496l-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"
+                fill="gray"
+                p-id="4248"
+              ></path>
+            </svg>
+
             <input
               type="search"
               name="keyword"
@@ -115,22 +131,6 @@ pub const TEMPLATE: &str = r#"
                 text-indent: 24px;
               "
             />
-
-            <svg
-              t="1698385657414"
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              p-id="4247"
-              width="20"
-              height="20"
-              style="position: absolute; left: 4px; top: 4px"
-            >
-              <path
-                d="M192 480a256 256 0 1 1 512 0 256 256 0 0 1-512 0m631.776 362.496l-143.2-143.168A318.464 318.464 0 0 0 768 480c0-176.736-143.264-320-320-320S128 303.264 128 480s143.264 320 320 320a318.016 318.016 0 0 0 184.16-58.592l146.336 146.368c12.512 12.48 32.768 12.48 45.28 0 12.48-12.512 12.48-32.768 0-45.28"
-                fill="gray"
-                p-id="4248"
-              ></path>
-            </svg>
           </form>
 
           <li class="list-item">
