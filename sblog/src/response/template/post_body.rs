@@ -170,17 +170,11 @@ pub const TEMPLATE: &str = r#"
           margin: 30px 0;
         }
         .markdown-content pre code {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .markdown-content pre code::-webkit-scrollbar {
-            display: none;
-        }
-        .markdown-content pre code {
             scrollbar-color: #666 #201c29;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
             overflow-x: scroll;
+            overflow-y: scroll;
             display: block;
             max-width: 100%;
             max-height: 400px;
@@ -227,7 +221,7 @@ pub const TEMPLATE: &str = r#"
         "
       >
         <style>
-            .post-tag { color: #222; border-radius: 2px; padding: 0 4px;  margin: 0 0 0 8px; }
+            .post-tag { color: #222; border-radius: 2px; padding: 0 4px;  margin: 0 8px; }
         </style>
         $${{post-tag}}
       </div>
