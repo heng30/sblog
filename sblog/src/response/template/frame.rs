@@ -46,7 +46,7 @@ pub const TEMPLATE: &str = r#"
       text-align: justify;
       word-break: break-word;
       hyphens: auto;
-      margin: 0 24px;
+      margin: 0 16px;
     }
     @media screen and (max-width: 480px) {
       body {
