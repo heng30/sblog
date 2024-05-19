@@ -170,10 +170,12 @@ pub const TEMPLATE: &str = r#"
           margin: 30px 0;
         }
         .markdown-content pre code {
-            scrollbar-color: #666 #201c29;
+            -ms-overflow-style: none;
+        }
+        .markdown-content pre code {
             white-space: pre;
             -webkit-overflow-scrolling: touch;
-            overflow-x: scroll;
+            overflow-x: none;
             overflow-y: scroll;
             display: block;
             max-width: 100%;
