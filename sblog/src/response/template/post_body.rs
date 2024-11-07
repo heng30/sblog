@@ -2,7 +2,6 @@ pub const TEMPLATE: &str = r#"
     <div style="padding-top: 60px;">
       <style>
         .app-body {
-          padding: 1em;
           margin: 0 auto;
           height: 100%;
           max-width: 1040px;
