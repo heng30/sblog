@@ -28,7 +28,7 @@ pub async fn homepage(page: usize) -> String {
         .replace("$${{post-title}}", "Home");
 
     let header = header
-        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{is-show-header}}", "flex")
         .replace("$${{site-name}}", &webinfo.site_name);
 
     let (prev_page, current_page, total_page, next_page) = get_page_info(page);
@@ -89,7 +89,7 @@ pub async fn post(id: &str) -> Option<String> {
         .replace("$${{post-title}}", &post_name);
 
     let header = header
-        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{is-show-header}}", "none")
         .replace("$${{site-name}}", &webinfo.site_name);
 
     let body = body
@@ -130,17 +130,11 @@ pub fn parse_post_path(path: &str) -> Option<(String, String, String, bool)> {
 }
 
 fn render_tag(tags: &str) -> String {
-    let tag_colors = [
-        "#CCE0FF", "#BAF3DB", "#C1F0F5", "#DFD8FD", "#FFD2CC", "#FDD0EC", "#D3F1A7", "#DCDFE4",
-    ];
-
     let mut tags_str = String::default();
-    for (index, tag) in tags.split(',').enumerate() {
+    for tag in tags.split(',') {
         let span = format!(
-            "<a  class='post-tag' style='background: {};' href='/search?keyword={}'>{}</a>",
-            tag_colors[index % tag_colors.len()],
-            tag,
-            tag
+            "<a  class='post-tag' href='/search?keyword={}'>{}</a>",
+            tag, tag
         );
         tags_str = format!("{}\n{}", tags_str, span);
     }
@@ -228,7 +222,7 @@ pub async fn about() -> String {
         .replace("$${{post-title}}", "About");
 
     let header = header
-        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{is-show-header}}", "flex")
         .replace("$${{site-name}}", &webinfo.site_name);
 
     let about_md_path = config::conf::template_dir().join("about-body.md");
@@ -383,7 +377,7 @@ pub async fn search(keyword: &str) -> String {
         .replace("$${{post-title}}", "Search");
 
     let header = header
-        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{is-show-header}}", "flex")
         .replace("$${{site-name}}", &webinfo.site_name);
 
     let (prev_page, current_page, total_page, next_page) = (0, 1, 1, 0);
@@ -415,7 +409,8 @@ async fn render_search(keyword: &str) -> String {
             }
         };
 
-        if post_name.to_lowercase().contains(&keyword) || post_tag.to_lowercase().contains(&keyword) {
+        if post_name.to_lowercase().contains(&keyword) || post_tag.to_lowercase().contains(&keyword)
+        {
             ps.push(data::PostSummary {
                 id,
                 name: post_name,

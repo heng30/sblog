@@ -1,82 +1,48 @@
 pub const TEMPLATE: &str = r#"
-<!DOCTYPE html>
+<!doctype html>
 <html lang="cn">
   <style>
-    @font-face {
-      font-family: 'Merriweather';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Merriweather'), local('Merriweather-Regular');
-    }
-    @font-face {
-      font-family: 'Lato';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Lato Regular'), local('Lato-Regular');
-    }
     body {
-      font-family: 'Merriweather', serif;
+      background-color: #16161a;
+      color: #aeaeae;
+      margin: 0 auto;
+      width: 860px;
+      scrollbar-width: thin;
+      scrollbar-color: #aeaeae #161616;
     }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .nav,
-    .article-duration,
-    .archive-item-link,
-    .footer {
-      font-family: 'Lato', sans-serif;
-    }
-    ::selection {
-      background: #209460;
-      color: #fff;
-    }
-    html {
-      font-size: 62.5%;
-    }
-    body {
-      font-family: 'Merriweather', serif;
-      font-size: 1.7em;
-      position: relative;
-      line-height: 1.6;
-      font-weight: 400;
-      color: #222;
-      text-align: justify;
-      word-break: break-word;
-      hyphens: auto;
-      margin: 0 16px;
-    }
-    @media screen and (max-width: 480px) {
-      body {
-        font-size: 15px;
-      }
-    }
-    @media screen and (max-width: 1240px) {
-      body {
-        font-size: 15px;
-      }
-    }
-    p {
-      margin: 0.5;
-    }
-    ol,
-    ul,
-    form {
-      margin: 0;
-    }
+
     a {
       text-decoration: none;
-      color: #209460;
+      color: #aeaeae;
       cursor: pointer;
     }
-    p {
-      word-spacing: 0.05em;
-      color: #000;
+
+    a:hover {
+      border-bottom: 2px solid #eeeeee;
+      color: #eeeeee;
     }
-    pre {
-      overflow-x: auto;
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #161616;
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #aeaeae;
+      border-radius: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #eeeeee;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: #aeaeae;
     }
   </style>
 
@@ -93,25 +59,24 @@ pub const TEMPLATE: &str = r#"
     />
     <meta property="og:site_name" content="$${{site-name}}" />
     <meta property="og:type" content="website" />
-    <link rel="shortcut icon" href="$${{site-logo-tab}}">
+    <link rel="shortcut icon" href="$${{site-logo-tab}}" />
     <title>$${{post-title}} | $${{site-name}}</title>
   </head>
-  <body>
-    $${{header}}
-    $${{body}}
-  </body>
 
-  <script>
-    var prevScrollpos = window.pageYOffset;
-    window.onscroll = function () {
-      var currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-          document.getElementById('fixed-header').style.position = 'fixed';
-      } else {
-          document.getElementById('fixed-header').style.position = 'absolute';
-      }
-      prevScrollpos = currentScrollPos;
-    };
-  </script>
+  <body>
+    <div
+      style="
+        margin: 30px 0px;
+        padding: 20px;
+        background-color: #202020;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
+      "
+    >
+      $${{header}} $${{body}}
+    </div>
+  </body>
 </html>
 "#;
