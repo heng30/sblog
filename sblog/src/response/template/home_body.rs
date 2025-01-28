@@ -1,18 +1,21 @@
 pub const TEMPLATE: &str = r#"
 <div style="padding-top: 20px">
   <style>
-    .header-link a {
-      color: #eeeeee;
-      font-weight: 600;
-      font-size: 1.2em;
-    }
-
     .article-card {
       margin-bottom: 40px;
     }
+
+    .article-card a {
+      color: #eeeeee;
+      font-size: 1.2em;
+    }
+
+    .article-summary a {
+      font-size: 1em;
+    }
   </style>
 
-  <div class="header-link">$${{post-summary-list}}</div>
+  <div>$${{post-summary-list}}</div>
 
   <div
     style="
