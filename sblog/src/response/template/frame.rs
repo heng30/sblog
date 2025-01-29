@@ -83,5 +83,4 @@ pub const TEMPLATE: &str = r#"
   <body>
     <div class="content-container">$${{header}} $${{body}}</div>
   </body>
-<
 "#;
