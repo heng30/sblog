@@ -47,7 +47,7 @@ pub const TEMPLATE: &str = r#"
 
       code {
         background: #161616;
-        padding: 2px 6px;
+        padding: 1px 6px;
         border-radius: 2px;
       }
 
