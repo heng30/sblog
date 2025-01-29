@@ -75,7 +75,7 @@ pub const TEMPLATE: &str = r#"
       }
 
       .content-container {
-        margin: 30px 0px;
+        margin: 30px 10px;
         padding: 20px;
         background-color: #202020;
         border-radius: 8px;
