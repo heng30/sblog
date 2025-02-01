@@ -1,6 +1,18 @@
 pub const TEMPLATE: &str = r#"
 <div>
   <style>
+    .post-tags {
+      padding-top: 24px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      align-items: right;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      text-align: center;
+      font-size: 0.8em;
+    }
+
     .post-tag {
       color: #aeaeae;
       border-radius: 4px;
@@ -18,11 +30,15 @@ pub const TEMPLATE: &str = r#"
       color: #eeeeee;
     }
 
+    pre {
+      position: relative;
+    }
+
     pre code {
+      display: block;
       white-space: pre;
       overflow-x: none;
       overflow-y: auto;
-      display: block;
       max-width: 100%;
       max-height: 400px;
       min-width: 100px;
@@ -35,6 +51,25 @@ pub const TEMPLATE: &str = r#"
       scrollbar-color: #aeaeae #161616;
       -webkit-overflow-scrolling: touch;
     }
+
+    .copy-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background-color: #6e6e6e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-size: 0.6em;
+    }
+
+    pre:hover .copy-icon {
+      opacity: 1;
+    }
   </style>
 
   <div style="margin: 0 auto; text-align: center">
@@ -43,21 +78,37 @@ pub const TEMPLATE: &str = r#"
   </div>
 
   <div class="post-link">$${{post-article}}</div>
+  <div class="post-tags">$${{post-tag}}</div>
 
-  <div
-    style="
-      padding-top: 24px;
-      margin: 0 auto;
-      text-align: center;
-      display: flex;
-      align-items: right;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      text-align: center;
-      font-size: 0.8em;
-    "
-  >
-    $${{post-tag}}
-  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const codeBlocks = document.querySelectorAll('pre code');
+
+      codeBlocks.forEach((codeBlock) => {
+        const copyIcon = document.createElement('button');
+        copyIcon.className = 'copy-icon';
+        copyIcon.textContent = '复制';
+
+        const preElement = codeBlock.parentElement;
+        preElement.appendChild(copyIcon);
+
+        copyIcon.addEventListener('click', () => {
+          const codeText = codeBlock.textContent;
+
+          navigator.clipboard
+            .writeText(codeText)
+            .then(() => {
+              copyIcon.textContent = '复制成功!';
+              setTimeout(() => {
+                copyIcon.textContent = '复制';
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error('Failed to copy text: ', err);
+            });
+        });
+      });
+    });
+  </script>
 </div>
 "#;

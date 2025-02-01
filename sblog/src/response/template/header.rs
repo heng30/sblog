@@ -16,8 +16,7 @@ pub const TEMPLATE: &str = r#"
         height: 2em;
         width: 0;
         margin-right: 8px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: width 0.3s ease;
         display: flex;
         flex-direction: row;
       "
@@ -30,7 +29,7 @@ pub const TEMPLATE: &str = r#"
         style="
           width: 100%;
           border-color: #aeaeae;
-          border-width: 0 0 1px 0;
+          border-width: 0;
           text-indent: 4px;
           background-color: #202020;
           color: #aeaeae;
@@ -40,31 +39,30 @@ pub const TEMPLATE: &str = r#"
       />
     </form>
 
-    <a style="display: flex; margin: auto 8px" onclick="toggleSearchForm()"
+    <a style="display: flex; margin: auto 8px" onclick="showSearchForm()"
       >搜索</a
     >
+
     <a style="display: flex; margin: auto 8px" href="/about/">关于</a>
     <a style="display: flex; margin: auto 8px" href="/rss/">订阅</a>
   </div>
 
   <script>
-    function toggleSearchForm() {
+    function showSearchForm() {
       const form = document.getElementById('search-form');
-      if (form.style.opacity === '0') {
-        form.style.opacity = '1';
-        form.style.width = '8em';
+      form.style.width = '8em';
 
-        const input = form.querySelector('input');
-        input.focus();
-      } else {
-        form.style.opacity = '0';
-        form.style.width = '0';
-      }
+      const input = form.querySelector('input');
+      input.style.borderBottomWidth = '1px';
+      input.focus();
     }
 
     function hideSearchForm() {
       const form = document.getElementById('search-form');
-      form.style.opacity = '0';
+      form.style.width = '0';
+
+      const input = form.querySelector('input');
+      input.style.borderBottomWidth = '0';
     }
   </script>
 </header>
