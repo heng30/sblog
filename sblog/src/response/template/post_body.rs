@@ -1,10 +1,10 @@
 pub const TEMPLATE: &str = r#"
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
-  rel="stylesheet"
-/>
-
 <div>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
+    rel="stylesheet"
+  />
+
   <style>
     .post-tags {
       padding-top: 24px;
