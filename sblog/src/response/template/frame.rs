@@ -16,11 +16,6 @@ pub const TEMPLATE: &str = r#"
     <meta property="og:type" content="website" />
 
     <link rel="shortcut icon" href="$${{site-logo-tab}}" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
-      rel="stylesheet"
-    />
-
     <title>$${{post-title}} | $${{site-name}}</title>
 
     <style>
@@ -89,9 +84,5 @@ pub const TEMPLATE: &str = r#"
   <body>
     <div class="content-container">$${{header}} $${{body}}</div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script>
-    hljs.highlightAll();
-  </script>
 </html>
 "#;

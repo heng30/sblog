@@ -1,4 +1,9 @@
 pub const TEMPLATE: &str = r#"
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"
+  rel="stylesheet"
+/>
+
 <div>
   <style>
     .post-tags {
@@ -79,6 +84,11 @@ pub const TEMPLATE: &str = r#"
 
   <div class="post-link">$${{post-article}}</div>
   <div class="post-tags">$${{post-tag}}</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
