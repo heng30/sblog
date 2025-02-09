@@ -75,6 +75,10 @@ pub const TEMPLATE: &str = r#"
     pre:hover .copy-icon {
       opacity: 1;
     }
+
+    h2 {
+        padding-top: 1em;
+    }
   </style>
 
   <div style="margin: 0 auto; text-align: center">
