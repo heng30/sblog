@@ -46,6 +46,12 @@ pub const TEMPLATE: &str = r#"
         border-radius: 2px;
       }
 
+      img {
+        text-align: center;
+        width: 90%;
+        margin: 1em 5%;
+      }
+
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
