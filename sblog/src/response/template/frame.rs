@@ -47,9 +47,9 @@ pub const TEMPLATE: &str = r#"
       }
 
       img {
-        text-align: center;
+        display: block;
         width: 90%;
-        margin: 1em 5%;
+        margin: 1em auto;
       }
 
       ::-webkit-scrollbar {
