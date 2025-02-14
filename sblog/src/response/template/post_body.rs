@@ -79,6 +79,12 @@ pub const TEMPLATE: &str = r#"
     h2 {
         padding-top: 1em;
     }
+
+    blockquote {
+        padding: 0 1em;
+        color: #6e6e6e;
+        border-left: 0.2em solid #aeaeae;
+    }
   </style>
 
   <div style="margin: 0 auto; text-align: center">
