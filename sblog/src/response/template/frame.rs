@@ -20,11 +20,19 @@ pub const TEMPLATE: &str = r#"
 
     <style>
       body {
-        background-color: #16161a;
-        color: #aeaeae;
         width: 100%;
+        height: 100%;
         max-width: 860px;
         margin: 0 auto;
+        color: #aeaeae;
+        background-color: #202020;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.171) 2px,
+          transparent 0
+        );
+        background-size: 30px 30px;
+        background-position: -5px -5px;
+
         scrollbar-width: thin;
         scrollbar-color: #aeaeae #161616;
       }
@@ -82,6 +90,17 @@ pub const TEMPLATE: &str = r#"
         border-radius: 8px;
         display: flex;
         flex-direction: column;
+        box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
+        transition: all ease-in-out 0.3s;
+      }
+
+      @media screen and (max-width: 480px) {
+        .content-container {
+          margin: 0;
+        }
+      }
+
+      .content-container:hover {
         box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.5);
       }
     </style>
