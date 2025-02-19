@@ -1,8 +1,11 @@
 use super::super::cache;
 use super::super::data;
 use crate::config;
+use async_walkdir::WalkDir;
 use atom_syndication::FixedDateTime;
 use atom_syndication::{Category, Entry, FeedBuilder, Link, Person, Text};
+use futures_lite::stream::StreamExt;
+use std::collections::HashSet;
 use std::path::Path;
 use std::str::FromStr;
 use tokio::fs;
@@ -202,6 +205,71 @@ async fn render_post_summary(page: usize) -> String {
     }
 
     html
+}
+
+async fn get_all_tags() -> Vec<String> {
+    let mut tags = HashSet::new();
+
+    let mut entries = WalkDir::new(config::conf::monitor().md);
+
+    loop {
+        match entries.next().await {
+            Some(Ok(entry)) => {
+                let (_, post_tag, _, _) = {
+                    match parse_post_path(&entry.path().as_path().to_string_lossy()) {
+                        Some(item) => item,
+                        _ => continue,
+                    }
+                };
+
+                for tag in post_tag.split(',') {
+                    tags.insert(tag.to_string());
+                }
+            }
+            Some(Err(e)) => {
+                log::warn!("error: {}", e);
+            }
+            None => break,
+        }
+    }
+
+    let mut tags = tags.into_iter().collect::<Vec<_>>();
+    tags.sort();
+    tags
+}
+
+pub async fn tags() -> String {
+    let (frame, header, body) = {
+        let ptc = cache::POST_TEMPLATE_CACHE.lock().unwrap();
+        (
+            ptc.get("frame").unwrap().to_string(),
+            ptc.get("header").unwrap().to_string(),
+            ptc.get("tags-body").unwrap().to_string(),
+        )
+    };
+
+    let webinfo = config::conf::webinfo();
+    let frame = frame
+        .replace("$${{site-name}}", &webinfo.site_name)
+        .replace("$${{site-logo}}", &webinfo.site_logo)
+        .replace("$${{site-logo-tab}}", &webinfo.site_logo_tab)
+        .replace("$${{post-title}}", "Tags");
+
+    let header = header
+        .replace("$${{is-show-header}}", "flex")
+        .replace("$${{site-name}}", &webinfo.site_name);
+
+    let mut tags_html = vec![];
+    for tag in get_all_tags().await.into_iter() {
+        tags_html.push(render_tag(&tag));
+    }
+
+    let tags_html = tags_html.into_iter().collect::<String>();
+    let body = body.replace("$${{tags}}", &tags_html);
+
+    frame
+        .replace("$${{header}}", &header)
+        .replace("$${{body}}", &body)
 }
 
 pub async fn about() -> String {

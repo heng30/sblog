@@ -94,6 +94,7 @@ fn init_template() {
     let header = template_dir.join("header.html");
     let home_body = template_dir.join("home-body.html");
     let post_body = template_dir.join("post-body.html");
+    let tags_body = template_dir.join("tags-body.html");
     let about_body = template_dir.join("about-body.html");
     let about_body_md = template_dir.join("about-body.md");
 
@@ -140,6 +141,19 @@ fn init_template() {
             ptc.insert(
                 "post-body".to_string(),
                 template::post_body::TEMPLATE.to_string(),
+            );
+        }
+    }
+
+    match fs::read_to_string(&tags_body) {
+        Ok(text) => {
+            ptc.insert("tags-body".to_string(), text);
+        }
+        _ => {
+            fs::write(&tags_body, template::tags_body::TEMPLATE).unwrap();
+            ptc.insert(
+                "tags-body".to_string(),
+                template::tags_body::TEMPLATE.to_string(),
             );
         }
     }

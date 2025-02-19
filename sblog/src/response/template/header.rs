@@ -61,6 +61,7 @@ pub const TEMPLATE: &str = r#"
     </form>
 
     <a class="search" onclick="showSearchForm()">搜索</a>
+    <a style="display: flex; margin: auto 8px" href="/tags/">分类</a>
     <a style="display: flex; margin: auto 8px" href="/about/">关于</a>
     <a style="display: flex; margin: auto 8px" href="/rss/">订阅</a>
   </div>

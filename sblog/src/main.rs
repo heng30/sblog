@@ -57,6 +57,7 @@ fn server_start() -> Rocket<rocket::Build> {
                 controller::search::search,
                 controller::about::about,
                 controller::rss::rss,
+                controller::tags::tags,
             ],
         )
 }
