@@ -7,11 +7,8 @@ pub const TEMPLATE: &str = r#"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       name="viewport"
     />
-    <meta name="description" content="All about coding and writing" />
-    <meta
-      name="keyword"
-      content="Programming, Programming Languages, Algorithms, Tools"
-    />
+    <meta name="description" content="这个博客关于编程，写作和英语学习" />
+    <meta name="keyword" content="编程，写作，英语学习" />
     <meta property="og:site_name" content="$${{site-name}}" />
     <meta property="og:type" content="website" />
 
