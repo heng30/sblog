@@ -53,7 +53,7 @@ pub const TEMPLATE: &str = r#"
 
       img {
         display: block;
-        width: 90%;
+        width: 100%;
         margin: 1em auto;
       }
 
